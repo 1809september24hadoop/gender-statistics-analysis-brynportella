@@ -7,14 +7,14 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class FemaleEducationImprovementMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
+public class MaleEducationImprovementMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		String[] line = value.toString().trim().split("\",\"");
 		String indicator1 = "SE";
 		String indicator2 = "CUAT";
-		String indicator3 = "FE";
+		String indicator3 = "MA";
 		String countryCode = "USA";
 		int indicatorIndex = 3;
 		int countryCodeIndex = 1;

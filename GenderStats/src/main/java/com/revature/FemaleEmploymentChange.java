@@ -20,7 +20,7 @@ public class FemaleEmploymentChange {
 		
 		Job job = new Job();
 		
-		job.setJarByClass(MaleEmploymentChange.class);
+		job.setJarByClass(FemaleEmploymentChange.class);
 		
 		job.setJobName("Percent Female Employment Change");
 		
