@@ -1,67 +1,73 @@
 package com.revature.map;
 
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.log4j.Logger;
 
-public class FemaleEducationImprovementMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class FemaleEducationImprovementMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
 	//private static final Logger LOGGER = Logger.getLogger(FemaleGraduateMapper.class);
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
 		String[] line = value.toString().trim().split("\",\"");
-		String indicatorCode = "SE.SEC.CUAT.UP.FE.ZS";
-		Long countryInfoMinIndex = 10983756L;
-		int graduationRate = 30;
-		int year = 1960;
-		int outputYear = year;
-		
-		
-		String outputKey = line[0].substring(1);
-		Deque<String> gradRateStack = new ArrayDeque();
-		for (int i =0; i<line.length; i++) { 
-			String element = line[i];
-			if(element.contains(indicatorCode)) {
-				for (int j = i+1 ; j<line.length; j++) {
-					String percentage = cleanString(line[j].trim()); 
-					if(percentage.length()>1){
-						gradRateStack.push(percentage);	
-						outputYear = year;
+		String indicator1 = "SE";
+		String indicator2 = "CUAT";
+		String indicator3 = "FE";
+		String countryCode = "USA";
+		int indicatorIndex = 3;
+		int countryCodeIndex = 1;
+
+		String outputKey = line[0].substring(1);		
+
+		int initialYearIndex = 40;		
+		int initialYear = 2000;
+
+		int mostRecentYearIndex = line.length-1;
+		int mostRecentYear = 2016;
+
+		Double mostRecentYearVal = null, initialYearVal = null;
+		String strMostRecentYearVal, strInitialYearVal = "";
+
+		Double averageChange = 0.0;
+
+		if (line[countryCodeIndex].equals(countryCode)){
+			String indicatorCode = line[indicatorIndex];
+			if(indicatorCode.contains(indicator1) && indicatorCode.contains(indicator2) && indicatorCode.contains(indicator3)){
+				do{
+					strInitialYearVal = line[initialYearIndex];
+					try{
+						initialYearVal = Double.parseDouble(strInitialYearVal);
+						if (initialYearVal <= 0) throw new NumberFormatException();
+						break;
+					}catch(NumberFormatException ex){
+						initialYearIndex ++;
+						initialYear++;
 					}
-					year++;
-				}
-				if(gradRateStack.isEmpty() ){
-					if (key.get()>countryInfoMinIndex) context.write(new Text(outputKey), new Text("No data available"));
+				}while(initialYearIndex<mostRecentYearIndex);
+
+				do{
+					strMostRecentYearVal = line[mostRecentYearIndex];
+					try{
+						mostRecentYearVal = Double.parseDouble(strMostRecentYearVal);
+						if(mostRecentYearVal<= 0) throw new NumberFormatException();
+						break;
+					}catch(NumberFormatException ex){
+						mostRecentYearIndex--;
+						mostRecentYear--;
+					}	
+				}while(mostRecentYearIndex>initialYearIndex);
+				if(mostRecentYearVal == null || initialYearVal == null || initialYear == mostRecentYear){
 					return;
 				}
-				String mostRecentPercentage = gradRateStack.pop();
-				try{
-					Double doublePercentage = Double.parseDouble(mostRecentPercentage);
-					if(doublePercentage<graduationRate){
-						context.write(new Text(outputKey+" "+outputYear), new Text(mostRecentPercentage.toString()));
-					}
-				}catch(NumberFormatException ex){
-					return;
-				}	
-			}else if(i>10){
-				return;
+				else{
+					averageChange = (mostRecentYearVal - initialYearVal)/(mostRecentYear-initialYear);
+					context.write(new Text(outputKey), new DoubleWritable(averageChange));
+				}
 			}
 		}
 	}
-	
-	private String cleanString(String word){
-		String newWord = "";
-		for (char c: word.toCharArray()){
-			if(Character.isDigit(c)|| c=='.'){
-				newWord += c;
-			}
-		}
-		return newWord;
-	}
-	
+
 }

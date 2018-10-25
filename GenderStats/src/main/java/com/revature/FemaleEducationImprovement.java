@@ -31,7 +31,6 @@ public class FemaleEducationImprovement {
 		
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
-		job.setNumReduceTasks(0);
 		boolean success = job.waitForCompletion(true);
 		
 		System.exit(success ? 0:1);
