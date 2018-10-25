@@ -8,25 +8,27 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.revature.map.FemaleGraduateMapper;
+import com.revature.map.MaleEmploymentChangeMapper;
 
-public class FemaleGraduate {
+
+public class MaleEmploymentChange {
 	public static void main(String[] args) throws Exception{
 		if (args.length != 2){
 			System.out.printf(
-					"Usage: Female Graduate <input dir> <output dir>");
+					"Usage: MaleEmploymentChange <input dir> <output dir>");
 			System.exit(-1);
 		}
 		
 		Job job = new Job();
 		
-		job.setJarByClass(FemaleGraduate.class);
+		job.setJarByClass(MaleEmploymentChange.class);
 		
-		job.setJobName("Female Graduation Rates");
+		job.setJobName("Percent Male Employment Change");
 		
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		
-		job.setMapperClass(FemaleGraduateMapper.class);
+		job.setMapperClass(MaleEmploymentChangeMapper.class);
 		
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
