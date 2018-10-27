@@ -7,7 +7,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class FemaleEducationImprovementMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
+public class FemaleEducationMapOnlyMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -63,6 +63,7 @@ public class FemaleEducationImprovementMapper extends Mapper<LongWritable, Text,
 				}
 				else{
 					averageChange = (mostRecentYearVal - initialYearVal)/(mostRecentYear-initialYear);
+					outputKey = " "+line[countryCodeIndex+1];
 					context.write(new Text(outputKey), new DoubleWritable(averageChange));
 				}
 			}
