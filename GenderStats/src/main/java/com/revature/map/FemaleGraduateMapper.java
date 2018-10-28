@@ -10,7 +10,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.log4j.Logger;
 
 public class FemaleGraduateMapper extends Mapper<LongWritable, Text, Text, Text> {
-	//private static final Logger LOGGER = Logger.getLogger(FemaleGraduateMapper.class);
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -20,12 +19,10 @@ public class FemaleGraduateMapper extends Mapper<LongWritable, Text, Text, Text>
 		int graduationRate = 30;
 		int year = 1960;
 		int outputYear = year;
-		
-		
 		String outputKey = line[0].substring(1);
 		Deque<String> gradRateStack = new ArrayDeque();
-		for (int i =0; i<line.length; i++) { 
-			String element = line[i];
+		for (int i =0; i<line.length; i++) {
+			String element = line[i];			
 			if(element.contains(indicatorCode)) {
 				for (int j = i+1 ; j<line.length; j++) {
 					String percentage = cleanString(line[j].trim()); 
@@ -43,7 +40,7 @@ public class FemaleGraduateMapper extends Mapper<LongWritable, Text, Text, Text>
 				try{
 					Double doublePercentage = Double.parseDouble(mostRecentPercentage);
 					if(doublePercentage<graduationRate){
-						context.write(new Text(outputKey+" "+outputYear), new Text(mostRecentPercentage.toString()));
+						context.write(new Text(outputKey+" "+outputYear), new Text(doublePercentage.toString()));
 					}
 				}catch(NumberFormatException ex){
 					return;

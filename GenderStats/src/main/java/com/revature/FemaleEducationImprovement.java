@@ -1,6 +1,7 @@
 package com.revature;
 
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -13,7 +14,7 @@ public class FemaleEducationImprovement {
 	public static void main(String[] args) throws Exception{
 		if (args.length != 2){
 			System.out.printf(
-					"Usage: Female Graduate <input dir> <output dir>");
+					"Usage: FemaleEducationImprovement <input dir> <output dir>");
 			System.exit(-1);
 		}
 		
@@ -30,7 +31,7 @@ public class FemaleEducationImprovement {
 		job.setReducerClass(FemaleEducationImprovementReducer.class);
 		
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(Text.class);
+		job.setOutputValueClass(DoubleWritable.class);
 		boolean success = job.waitForCompletion(true);
 		
 		System.exit(success ? 0:1);
