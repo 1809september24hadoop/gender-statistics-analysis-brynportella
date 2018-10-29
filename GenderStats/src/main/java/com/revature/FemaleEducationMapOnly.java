@@ -9,6 +9,18 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import com.revature.map.FemaleEducationMapOnlyMapper;
 import com.revature.reduce.FemaleEducationImprovementReducer;
+/**
+ * FemaleEducationMapOnly is the driving class for the 
+ * FemaleEducationMapOnlyMapper, which outputs more descriptive 
+ * intermediate output with the kinds of educational attainment
+ * and their changes. 
+ * It reads in the input csv from the command line and the desired output path.  
+ * 
+ * @author Bryn Portella
+ *
+ */
+
+
 
 public class FemaleEducationMapOnly {
 	public static void main(String[] args) throws Exception{

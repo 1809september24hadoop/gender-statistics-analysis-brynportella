@@ -8,7 +8,21 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class MaleEmploymentChangeMapper extends Mapper<LongWritable, Text, Text, Text> {
-
+	/**
+	 * Map percent change in Male labor to
+	 * percentages from 2000 to 2016.
+	 * 
+	 * Assumptions: Percent participation in the labor 
+	 * force is a good measure of male employment. 
+	 * 
+	 * @param key implicitly defined longwirtable
+	 * @param value file line passed in
+	 * @param context reference to intermediate output
+	 * 
+	 * 
+	 * @return 
+	 * 
+	 */
 	@Override
 	public void map(LongWritable key, Text value,
 			Mapper<LongWritable, Text, Text, Text>.Context context)

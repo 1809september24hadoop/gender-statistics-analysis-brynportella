@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.revature.map.MaleEmploymentChangeMapper;
-import com.revature.reduce.MaleEmpChangeMapRedReducer;
+import com.revature.reduce.MaleEmploymentChangeReducer;
 
 
 public class MaleEmploymentChangeTest {
@@ -38,7 +38,7 @@ public class MaleEmploymentChangeTest {
     mapDriver.setMapper(mapper);
 
    
-    MaleEmpChangeMapRedReducer reducer = new MaleEmpChangeMapRedReducer();
+    MaleEmploymentChangeReducer reducer = new MaleEmploymentChangeReducer();
     reduceDriver = new ReduceDriver<Text, Text, Text, DoubleWritable>();
     reduceDriver.setReducer(reducer);
 

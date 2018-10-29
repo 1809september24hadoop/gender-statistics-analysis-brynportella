@@ -1,5 +1,20 @@
 package com.revature;
 
+/**
+ * Driver for first business question.
+ * 
+ * Creates a mapreduce job 
+ * where the mapper filters 
+ * out all countries with greater 
+ * than 30% female graduation rate
+ * and sets the amount of reducers 
+ * to zero.
+ * 
+ * Reads csv input from the command
+ * line.
+ * 
+ * @author Bryn Portella
+ */
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;

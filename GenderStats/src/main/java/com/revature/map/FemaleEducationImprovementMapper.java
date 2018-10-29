@@ -8,6 +8,27 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class FemaleEducationImprovementMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
+	/**
+	 * If a record has cumulative female educational info
+	 * about the USA then take the average change per 
+	 * year. 
+	 * (1)Get the earliest percentage from 2000 to 
+	 * most recent percentage over the number of years between 
+	 * them. 
+	 * Map this value to the key of the United States.
+	 * 
+	 * Assumptions: Educational attainment of at least each 
+	 * schooling level is a good measure of female education. 
+	 * The average increase per year for each field is best calculated
+	 * by formula (1).
+	 * 
+	 * @param key implicitly defined longwirtable
+	 * @param value file line passed in
+	 * @param context reference to intermediate output
+	 * 
+	 * 
+	 * @return 
+	 */
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {

@@ -7,7 +7,18 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class FemaleEmploymentChangeReducer extends Reducer<Text, Text, Text, DoubleWritable>{
-	
+	/**
+	 * Finds the percent change from 2000 to 2016 in percent of female labor force participation
+	 * 
+	 * Assumptions: Percent change is calculated by 
+	 * (value in 2016 - value in 2000) / value in 2000
+	 * 
+	 * @param key Percent change in female labor force participation
+	 * @param values List of records which include percent of female labor force participation 
+	 * for each year 
+	 * @param context  
+	 * @return
+	 */
 	@Override
 	protected void reduce(Text key, Iterable<Text> values,
 			Reducer<Text, Text, Text, DoubleWritable>.Context context)

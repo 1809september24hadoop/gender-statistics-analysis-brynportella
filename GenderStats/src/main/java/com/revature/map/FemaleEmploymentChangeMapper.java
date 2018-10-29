@@ -8,6 +8,22 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class FemaleEmploymentChangeMapper extends Mapper<LongWritable, Text, Text, Text> {
+	/**
+	 * Map "percent change in female labor" to
+	 * percentages from 2000 to 2016.
+	 * 
+	 * Assumptions: Percent participation in the labor 
+	 * force is a good measure of female employment. 
+	 * 
+	 * 
+	 * @param key implicitly defined longwirtable
+	 * @param value file line passed in
+	 * @param context reference to intermediate output
+	 * 
+	 * 
+	 * @return 
+	 * 
+	 */
 	@Override
 	public void map(LongWritable key, Text value,
 			Mapper<LongWritable, Text, Text, Text>.Context context)
@@ -20,7 +36,7 @@ public class FemaleEmploymentChangeMapper extends Mapper<LongWritable, Text, Tex
 		int year2000Index = 44;
 		String year2000ToPresent = "";
 		String outputKey = "Percent change in female labor force participation from 2000 to 2016";
-		
+
 		if (line[countryCodeIndex].equals(countryCode)){
 			if(line[indicatorCodeIndex].equals(indicatorCode)){
 				for (int i = year2000Index; i<line.length; i++ ){

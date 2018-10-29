@@ -2,13 +2,26 @@ package com.revature;
 
 
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import com.revature.map.MaleEmpChangeMapRedMapper;
-
+import com.revature.map.MaleEmploymentChangeMapper;
+import com.revature.reduce.MaleEmploymentChangeReducer;
+/**
+ * Driver for the Map Reduce 
+ * of male employment change. 
+ * 
+ * Creates an map reduce Job and 
+ * reads csv file input from the 
+ * command line.
+ * 
+ * 
+ * @author Bryn Portella
+ * 
+ */
 
 public class MaleEmploymentChange {
 	public static void main(String[] args) throws Exception{
@@ -27,11 +40,11 @@ public class MaleEmploymentChange {
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 		
-		job.setMapperClass(MaleEmpChangeMapRedMapper.class);
+		job.setMapperClass(MaleEmploymentChangeMapper.class);
+		job.setReducerClass(MaleEmploymentChangeReducer.class);
 		
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(Text.class);
-		job.setNumReduceTasks(0);
 		boolean success = job.waitForCompletion(true);
 		
 		System.exit(success ? 0:1);

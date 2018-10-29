@@ -10,6 +10,16 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import com.revature.map.FemaleEducationImprovementMapper;
 import com.revature.reduce.FemaleEducationImprovementReducer;
 
+/**
+ * FemaleEducationImprovement is the driving class for the 
+ * Female Education Improvement Mapper and Reducer. 
+ * It creates the female education job. It reads in 
+ * the input csv from the command line and the desired output path.  
+ * 
+ * @author Bryn Portella
+ *
+ */
+
 public class FemaleEducationImprovement {
 	public static void main(String[] args) throws Exception{
 		if (args.length != 2){

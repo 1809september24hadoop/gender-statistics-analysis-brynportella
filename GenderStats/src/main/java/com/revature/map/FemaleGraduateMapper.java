@@ -10,6 +10,28 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.log4j.Logger;
 
 public class FemaleGraduateMapper extends Mapper<LongWritable, Text, Text, Text> {
+	
+	/** 
+	 * If a record has cumulative female educational info
+	 * about graduating from upper secondary where the most recent percentage is less 
+	 * than  30% map this value 
+	 * to the key of the year and country. 
+	 * 
+	 * Assumptions: Countries without data shouldn't be assumed to be less than 30% 
+	 * and are there for mapped with a value of "no data available"
+	 * The most recent data available is the most relevant to consider.
+	 * The year of this data should be taken into account- so it is output as part of 
+	 * the key. 
+	 *
+	 * 
+	 * @param key implicitly defined longwirtable
+	 * @param value file line passed in
+	 * @param context reference to intermediate output
+	 * 
+	 * 
+	 * @return 
+	 */
+	
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {

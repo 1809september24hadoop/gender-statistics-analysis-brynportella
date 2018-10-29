@@ -8,6 +8,20 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 public class MaleEducationMapOnlyMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
+	/**
+	 * If a record has cumulative male educational info
+	 * about the USA then take the average change per 
+	 * year. Get the earliest percentage from 2000 to 
+	 * most recent percentage over the number of years between 
+	 * them. Map this value to the key of the United States
+	 * and the indicator code.
+	 * 
+	 * @param key implicitly defined longwirtable
+	 * @param value file line passed in
+	 * @param context reference to intermediate output
+	 * 
+	 * @return 
+	 */
 	@Override
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {

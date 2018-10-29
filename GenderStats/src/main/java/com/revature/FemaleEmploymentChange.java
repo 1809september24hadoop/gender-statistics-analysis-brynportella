@@ -10,6 +10,17 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import com.revature.map.FemaleEmploymentChangeMapper;
 import com.revature.reduce.FemaleEmploymentChangeReducer;
 
+/**
+ * Driver for the Map Reduce 
+ * of female employment change. 
+ * 
+ * Creates an map reduce Job and 
+ * reads csv file input from the 
+ * command line.
+ * 
+ * @author Bryn Portella
+ * 
+ */
 
 public class FemaleEmploymentChange {
 	public static void main(String[] args) throws Exception{

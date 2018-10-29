@@ -8,7 +8,15 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class FemaleEducationImprovementReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable> {
-
+/**
+ * Takes the average of the averages 
+ * 
+ * @param key United States 
+ * @param values List of averages per year of cumulative educational attainment
+ * @param context reference to output 
+ * 
+ * @return
+ */
 	@Override
 	public void reduce(Text key, Iterable<DoubleWritable> values, Context context)
 			throws IOException, InterruptedException {
