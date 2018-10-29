@@ -27,6 +27,7 @@ public class MaleEducationImprovementTest {
   private MapReduceDriver<LongWritable, Text, Text, DoubleWritable, Text, DoubleWritable> mapReduceDriver;
   private static Double historicVal = 98.33006;
   private static Double recentVal = 98.78043;
+  private static String path = "maleEdImpTester.csv";
   
   @Before
   public void setUp() {
@@ -50,15 +51,12 @@ public class MaleEducationImprovementTest {
   
   @Test
   public void testMapper() {
-
-	  String path = "maleEdImpTester.csv";
 		try (BufferedReader br =
 				new BufferedReader(new FileReader(path))){
 			String line = br.readLine();
 			while (line != null) {
-				line=br.readLine();
 				mapDriver.setInput(new LongWritable(1), new Text(line));
-				mapDriver.runTest();
+				line = br.readLine();
 			}
 			Double ave = (recentVal-historicVal)/11;
 		    mapDriver.withOutput(new Text("United States"), new DoubleWritable(ave));
@@ -90,13 +88,12 @@ public class MaleEducationImprovementTest {
 
   @Test
   public void testMapReduce() {
-	  String path = "maleEdImpTester.csv";
 		try (BufferedReader br =
 				new BufferedReader(new FileReader(path))){
 			String line = br.readLine();
 			while (line != null) {
-				line=br.readLine();
 				mapReduceDriver.addInput(new LongWritable(1), new Text(line));
+				line=br.readLine();
 			}
 			Double ave = (recentVal-historicVal)/11;
 		    mapReduceDriver.addOutput(new Text("United States"), new DoubleWritable(ave));
