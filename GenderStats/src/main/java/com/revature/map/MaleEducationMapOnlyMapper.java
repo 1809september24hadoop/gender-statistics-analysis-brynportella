@@ -21,7 +21,7 @@ public class MaleEducationMapOnlyMapper extends Mapper<LongWritable, Text, Text,
 
 		String outputKey = line[0].substring(1);		
 
-		int initialYearIndex = 40;		
+		int initialYearIndex = 44;		
 		int initialYear = 2000;
 
 		int mostRecentYearIndex = line.length-1;
