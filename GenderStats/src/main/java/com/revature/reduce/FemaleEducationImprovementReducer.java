@@ -11,6 +11,10 @@ public class FemaleEducationImprovementReducer extends Reducer<Text, DoubleWrita
 /**
  * Takes the average of the averages 
  * 
+ * Assumptions: The average of the averages of increase in educational attainment 
+ * is a useful summary statistic of how the improvement is going in all forms of 
+ * education per year. It gives a snapshot view.
+ * 
  * @param key United States 
  * @param values List of averages per year of cumulative educational attainment
  * @param context reference to output 

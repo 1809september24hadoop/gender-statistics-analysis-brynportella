@@ -16,6 +16,10 @@ public class MaleEducationMapOnlyMapper extends Mapper<LongWritable, Text, Text,
 	 * them. Map this value to the key of the United States
 	 * and the indicator code.
 	 * 
+	 * Assumptions: May want more detail than the average of 
+	 * averages for the change in male education so the output 
+	 * gives the indicator as part of the key.
+	 * 
 	 * @param key implicitly defined longwirtable
 	 * @param value file line passed in
 	 * @param context reference to intermediate output
